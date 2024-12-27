@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FieldsService } from '../login/fields.service';
+import { formMapper } from '../login/formMapper';
 
 @Component({
   selector: 'app-access',
@@ -11,28 +12,26 @@ import { FieldsService } from '../login/fields.service';
   styleUrl: '../login/login.component.sass'
 })
 export class AccessComponent {
-  // VALIDAZIONE
-  form =new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  })
-  
-
-  // CAMPI
-  fields: { title: string; type: string; }[];
+  form 
+  fields
   constructor(public fieldsService:FieldsService){
-    // PRENDE SOLO PASSWORD E EMAIL DAL SERVICE
-    this.fields =fieldsService.fields .filter(field=>
-      field.type ==="email" ||
-      field.type ==="password" 
-    )
+    // VALIDAZIONE 
+    let accessValidation ={
+      email: fieldsService.validationFields.email,
+      password: fieldsService.validationFields.password,
+    }
+    this.form =new FormGroup(accessValidation)
+    
+    // CAMPI (PRENDE SOLO PASSWORD E EMAIL DAL SERVICE)
+    this.fields =formMapper(accessValidation, this.fieldsService.validationFields)
     // console.log(this.fields, );
   }
 
   
   // SUBMIT
-  onSubmit(e:FormGroup){
-    console.log(e.value)
+  onSubmit(form:FormGroup){
+    console.log(form.value)
+    form.reset()
   }
 
 }

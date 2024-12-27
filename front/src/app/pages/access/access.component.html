@@ -3,15 +3,14 @@
 
     <main>
       <h1>Accesso</h1>
-      <!-- <p>I campi contrassegnati dall'asterisco * sono obbligatori</p> -->
+      <p>I campi contrassegnati dall'asterisco * sono obbligatori</p>
 
       <div *ngFor="let field of fields; let i=index">
         <div>
-          <input  [type]="field.type"
-                  [id]="field.title" [name]="field.title" value=""
+          <input  [type]="fieldsService.onInputType(field.title)" value=""
+                  [id]="field.title" [name]="field.title"
                   [placeholder]="field.title" [formControlName]="field.title">
-          <label [for]="field.title">{{ field.title | uppercase }}</label>
-          <!-- ingrandisce la prima lettera ed aggiunge l'asterisco -->
+          <label [for]="field.title">{{ field.placeHold }}</label>
         </div>
       </div>
     </main>

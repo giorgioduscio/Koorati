@@ -1,5 +1,6 @@
 @use 'bootstrap/dist/css/bootstrap.min.css'
 
+// ARTICOLO
 form
   @extend .text-center
   min-height: 80vh
@@ -15,7 +16,7 @@ form
   form
     border: 0
 
-
+// CONTENUTO PRINCIPALE
 main
   @extend .row
   gap: 1rem
@@ -26,33 +27,52 @@ main
     &>div
       @extend .form-floating
       min-width: 200px
+      max-width: 300px
+    select
+      @extend .form-select
+      @extend .text-bg-dark
+      min-width: 200px
+      min-height: 58px
       
-label
-  @extend .text-light
-  &:after
-    background: transparent !important
-input
-  @extend .form-control 
-  @extend .bg-transparent 
-  @extend .text-light
-  &.ng-touched.ng-valid
-    @extend .is-valid
-  &.ng-touched.ng-invalid
-    @extend .is-invalid
-    & + label
-      @extend .text-danger
+  label
+    @extend .text-light
+    &:after
+      background: transparent !important
+  input, select
+    @extend .form-control 
+    @extend .bg-transparent 
+    @extend .text-light
+    // quando sono stati toccati, i dati sono validi e non sono in focus => segnala corretto
+    &.ng-touched.ng-valid:not(:focus)
+      @extend .is-valid
+      
+    // quando sono stati toccati e i dati non sono validi => segnala errato
+    &.ng-touched.ng-invalid
+      @extend .is-invalid
+      & + label
+        @extend .text-danger
 
 
-
+// PULSANTI DI ACCESSO E REGISTRAZIONE
 footer
   @extend .col-12
   padding: 1rem 0
   display: flex
+  flex-flow: wrap
 
   button[type="submit"]
     @extend .btn
     @extend .btn-primary
-
   button
     @extend .btn
     @extend .btn-outline-primary
+  [check]
+    @extend .form-check
+    display: flex
+    align-items: center
+    input
+      @extend .form-check-input
+
+    label
+      @extend .form-check-label
+      margin: 0

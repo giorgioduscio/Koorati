@@ -1,34 +1,33 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FieldsService } from './fields.service';
-import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { formMapper } from './formMapper';
 
 @Component({
   selector: 'app-login',
-  imports: [NgIf, NgFor, ReactiveFormsModule, RouterLink, UpperCasePipe],
+  imports: [NgIf, NgFor, ReactiveFormsModule, RouterLink,],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass'
 })
 export class LoginComponent {
-  // VALIDAZIONE
-  form =new FormGroup({
-    nome: new FormControl('', Validators.required),
-    cognome: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    eta: new FormControl('', Validators.required),
-  })
-  
-
-  // CAMPI
+  form 
+  fields
   constructor(public fieldsService:FieldsService){
-    // console.log(fieldsService.fields, this.form);
+    // VALIDAZIONE
+    this.form =new FormGroup(this.fieldsService.validationFields)
+    // CAMPI
+    this.fields =formMapper(this.form.value, this.fieldsService.validationFields)
+      .filter(field=> field.title!=='termini')
+
+    // console.log(this.fields);
   }
 
 
   // SUBMIT
-  onSubmit(e:FormGroup){
-    console.log(e.value)
+  onSubmit(form:FormGroup){
+    console.log(form.value)
+    form.reset()
   }
 }

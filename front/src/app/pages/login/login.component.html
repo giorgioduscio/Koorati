@@ -3,22 +3,35 @@
 
     <main>
       <h1>Registrazione</h1>
-      <!-- <p>I campi contrassegnati dall'asterisco * sono obbligatori</p> -->
+      <p>I campi contrassegnati dall'asterisco * sono obbligatori</p>
 
-      <div *ngFor="let field of fieldsService.fields; let i=index">
-        <div>
-          <input  [type]="field.type"
-                  [id]="field.title" [name]="field.title" value=""
-                  [placeholder]="field.title" [formControlName]="field.title">
-          <label [for]="field.title">{{ field.title | uppercase }}</label>
-          <!-- ingrandisce la prima lettera ed aggiunge l'asterisco -->
-        </div>
+      <div *ngFor="let field of fields; let i=index">
+        @if (field.title==='sesso'){
+          <select [formControlName]="field.title">
+            <option selected disabled>{{ field.placeHold }}</option>
+            <option value="maschio">Maschio</option>
+            <option value="femmina">Femmina</option>
+          </select>
+
+        }@else {
+          <div>
+            <input  [type]="fieldsService.onInputType(field.title)" value=""
+                    [id]="field.title" [name]="field.title"
+                    [placeholder]="field.title" [formControlName]="field.title">
+            <label [for]="field.title">{{ field.placeHold }}</label>
+          </div>
+        }
       </div>
     </main>
     
     <footer>
       <button type="submit" [disabled]="form.invalid">Registrati</button>
       <button routerLink="/access">Accedi</button>
+      
+      <div check>
+        <input type="checkbox" id="flexCheckChecked" formControlName="termini">
+        <label for="flexCheckChecked" >Accetta i temini e le condizioni</label>
+      </div>
     </footer>
 
   </form>
