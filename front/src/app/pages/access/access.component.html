@@ -2,10 +2,10 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
 
     <main>
-      <h1>Registrazione</h1>
+      <h1>Accesso</h1>
       <!-- <p>I campi contrassegnati dall'asterisco * sono obbligatori</p> -->
 
-      <div *ngFor="let field of fieldsService.fields; let i=index">
+      <div *ngFor="let field of fields; let i=index">
         <div>
           <input  [type]="field.type"
                   [id]="field.title" [name]="field.title" value=""
@@ -17,8 +17,8 @@
     </main>
     
     <footer>
-      <button type="submit" [disabled]="form.invalid">Registrati</button>
-      <button routerLink="/access">Accedi</button>
+      <button type="submit" [disabled]="form.invalid">Accedi</button>
+      <button routerLink="/login">Registrati</button>
     </footer>
 
   </form>

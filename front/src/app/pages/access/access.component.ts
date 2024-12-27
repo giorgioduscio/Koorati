@@ -1,34 +1,38 @@
+import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FieldsService } from './fields.service';
-import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FieldsService } from '../login/fields.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-access',
   imports: [NgIf, NgFor, ReactiveFormsModule, RouterLink, UpperCasePipe],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.sass'
+  templateUrl: './access.component.html',
+  styleUrl: '../login/login.component.sass'
 })
-export class LoginComponent {
+export class AccessComponent {
   // VALIDAZIONE
   form =new FormGroup({
-    nome: new FormControl('', Validators.required),
-    cognome: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    eta: new FormControl('', Validators.required),
   })
   
 
   // CAMPI
+  fields: { title: string; type: string; }[];
   constructor(public fieldsService:FieldsService){
-    // console.log(fieldsService.fields, this.form);
+    // PRENDE SOLO PASSWORD E EMAIL DAL SERVICE
+    this.fields =fieldsService.fields .filter(field=>
+      field.type ==="email" ||
+      field.type ==="password" 
+    )
+    // console.log(this.fields, );
   }
 
-
+  
   // SUBMIT
   onSubmit(e:FormGroup){
     console.log(e.value)
   }
+
 }

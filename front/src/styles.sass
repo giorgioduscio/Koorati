@@ -1,8 +1,37 @@
 @use 'bootstrap/dist/css/bootstrap.min.css'
 
+// GENERALE
+*
+  gap: 5px
+  outline: 0
+
 body
   @extend .text-bg-dark
   
 article
   @extend .container
   padding: 50px 0
+
+// FORM
+label
+  @extend .form-label
+
+input[type="checkbox"], input[type="radio"]
+  @extend .form-check
+  
+textarea
+  @extend .form-check
+
+  
+input:not( [type="checkbox"], input[type="radio"] )
+  @extend .form-control
+
+select
+  @extend .form-select
+
+
+// PULSANTI
+button
+  @extend .btn
+a
+  @extend .link-offset-2

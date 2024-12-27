@@ -1,0 +1,58 @@
+@use 'bootstrap/dist/css/bootstrap.min.css'
+
+form
+  @extend .text-center
+  min-height: 80vh
+  padding: 10px
+  
+  display: flex
+  flex-flow: column
+  justify-content: space-between
+
+  border: 1px solid
+  border-radius: 10px
+@media screen and ( max-width:570px )
+  form
+    border: 0
+
+
+main
+  @extend .row
+  gap: 1rem
+  padding: 10px
+  &>div
+    @extend .col
+    padding: 0
+    &>div
+      @extend .form-floating
+      min-width: 200px
+      
+label
+  @extend .text-light
+  &:after
+    background: transparent !important
+input
+  @extend .form-control 
+  @extend .bg-transparent 
+  @extend .text-light
+  &.ng-touched.ng-valid
+    @extend .is-valid
+  &.ng-touched.ng-invalid
+    @extend .is-invalid
+    & + label
+      @extend .text-danger
+
+
+
+footer
+  @extend .col-12
+  padding: 1rem 0
+  display: flex
+
+  button[type="submit"]
+    @extend .btn
+    @extend .btn-primary
+
+  button
+    @extend .btn
+    @extend .btn-outline-primary
