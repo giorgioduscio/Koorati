@@ -1,0 +1,5 @@
+OTTIMIZZAZIONE
+- componente standard per quando non arrivano i risultati
+  o quando un array è vuoto 
+  o non definito
+- aggiungere placeholder delle dashboard prima che arrivino i risultati

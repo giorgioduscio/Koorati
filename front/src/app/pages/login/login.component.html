@@ -15,9 +15,9 @@
 
         }@else {
           <div>
-            <input  [type]="fieldsService.onInputType(field.title)" value=""
-                    [id]="field.title" [name]="field.title"
-                    [placeholder]="field.title" [formControlName]="field.title">
+            <input  [type]="fieldsService.onInputType(field.title)" 
+                    [id]="field.title" [name]="field.title" [formControlName]="field.title"
+                    placeholder="" value="">
             <label [for]="field.title">{{ field.placeHold }}</label>
           </div>
         }

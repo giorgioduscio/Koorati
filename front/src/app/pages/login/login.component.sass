@@ -42,15 +42,6 @@ main
     @extend .form-control 
     @extend .bg-transparent 
     @extend .text-light
-    // quando sono stati toccati, i dati sono validi e non sono in focus => segnala corretto
-    &.ng-touched.ng-valid:not(:focus)
-      @extend .is-valid
-      
-    // quando sono stati toccati e i dati non sono validi => segnala errato
-    &.ng-touched.ng-invalid
-      @extend .is-invalid
-      & + label
-        @extend .text-danger
 
 
 // PULSANTI DI ACCESSO E REGISTRAZIONE
@@ -59,6 +50,7 @@ footer
   padding: 1rem 0
   display: flex
   flex-flow: wrap
+  gap: 5px
 
   button[type="submit"]
     @extend .btn

@@ -1,0 +1,90 @@
+<article>
+  <header>
+    <h1>Accettazioni</h1>
+    <div>
+      <button type="button" id="button-addon1"> 
+        <i class="bi bi-search"></i>
+      </button>
+      <input 
+        type="number" 
+        placeholder="Cerca id accettazione" 
+        aria-label="Example text with button addon" 
+        aria-describedby="button-addon1"
+        [(ngModel)]="filter"
+      >
+    </div>
+  </header>
+
+  <form (ngSubmit)="onAdd()" [formGroup]="form" *ngIf="isAutorized">
+    <span> 
+      <button type="submit" [disabled]="form.invalid">
+        <i class="bi bi-plus-lg"></i>
+      </button> 
+    </span>
+
+    <main>
+      <input  *ngFor="let field of templateFields; let i=index"
+              [formControlName]="field.key" [id]="field.key" 
+              [placeholder]="field.title"   [type]="field.type"
+      >
+    </main>
+  </form>
+
+  <main>
+    <table *ngIf="accettazioniService.accettazioni_p.length; else noAccettazioni">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Id accettazione</th>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Data accettazione</th>
+          <th>Id ricetta</th>
+          <th>Data fruizione</th>
+          <th>Elenco prestazioni erogate</th>
+          <th>Id flusso di registrazione</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (accettazione of accettazioniService.accettazioni_p; track accettazione; let i=$index){
+          <tr *ngIf="filter==='' || accettazione.id_accettazione.toString().includes(filter)">
+            <td>
+              <button delete (click)="onDelete(accettazione.id_accettazione)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+            <td>
+              <button show  onclick="console.log('visualizza accettazione')">
+                <i class="bi bi-eye"></i>
+              </button>
+            </td>
+            <td>{{ accettazione.id_accettazione }}</td>
+            <td>{{ accettazione.nome }}</td>
+            <td>{{ accettazione.cognome }}</td>
+            <td>{{ accettazione.data_accettazione }}</td>
+            <td> <!-- FIX -->
+              <button *ngIf="accettazione.id_ricetta" onclick="console.log('modifica ricetta')">
+                <i class="bi bi-pencil-square"></i>
+                {{ accettazione.id_ricetta }}
+              </button>
+            </td>
+            <td>{{ accettazione.data_fruizione }}</td>
+            <td>
+              <button onclick="console.log('prestazioni correlate')">
+                <i class="bi bi-eye"></i>
+              </button>
+            </td>
+            <td>{{ accettazione.id_flusso_di_registrazione }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <ng-template #noAccettazioni>
+      <div noResult>
+        <h3> Nessuna accettazione </h3>
+        <p> Non è stata rivelata alcuna accettazione </p>
+      </div>
+    </ng-template>
+  </main>
+</article>

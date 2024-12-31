@@ -7,9 +7,9 @@
 
       <div *ngFor="let field of fields; let i=index">
         <div>
-          <input  [type]="fieldsService.onInputType(field.title)" value=""
-                  [id]="field.title" [name]="field.title"
-                  [placeholder]="field.title" [formControlName]="field.title">
+          <input  [type]="fieldsService.onInputType(field.title)" value="" placeholder=""
+                  [id]="field.title" [name]="field.title" [formControlName]="field.title"
+          >
           <label [for]="field.title">{{ field.placeHold }}</label>
         </div>
       </div>

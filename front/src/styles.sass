@@ -1,10 +1,6 @@
 @use 'bootstrap/dist/css/bootstrap.min.css'
 
 // GENERALE
-*
-  gap: 5px
-  outline: 0
-
 body
   @extend .text-bg-dark
   
@@ -12,22 +8,42 @@ article
   @extend .container
   padding: 50px 0
 
+
 // FORM
 label
   @extend .form-label
 
 input[type="checkbox"], input[type="radio"]
   @extend .form-check
+  margin-right: 5px !important
+  max-width: 10px
+  max-height: 10px
   
-textarea
-  @extend .form-check
-
-  
-input:not( [type="checkbox"], input[type="radio"] )
+textarea, input:not( [type="checkbox"], input[type="radio"] )
   @extend .form-control
 
 select
   @extend .form-select
+
+*::placeholder
+  color: inherit !important
+  font-style: italic
+
+// validazione
+form
+  // quando toccati, i dati sono validi e non sono in focus => segnala CORRETTO
+  input, textarea, select
+    &.ng-touched.ng-valid:not(:focus)
+      @extend .is-valid
+    
+    // quando sono stati toccati e i dati non sono validi => segnala ERRATO
+    &.ng-touched.ng-invalid
+      @extend .is-invalid
+      border: 1px solid red !important
+      & ~ label
+        @extend .text-danger
+        color: red !important
+
 
 
 // PULSANTI
@@ -35,3 +51,11 @@ button
   @extend .btn
 a
   @extend .link-offset-2
+
+// TABELLE
+table
+  @extend .table 
+  @extend .table-hover
+  @extend .align-middle
+  @extend .table-striped
+  @extend .table-borderless
