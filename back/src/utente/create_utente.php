@@ -1,6 +1,6 @@
+<!-- AGGIUNGERE IL CAMPO 'abilitato' DI TIPO BOOLEANO -->
 <?php
 require 'config.php';
-
 function createUtente($nome, $cognome, $sesso, $codice_fiscale, $luogo_nascita, $data_nascita, $cittadinanza, $comune_residenza, $indirizzo_residenza, $cap_residenza, $comune_domicilio, $indirizzo_domicilio, $cap_domicilio, $tipo_documento, $numero_documento, $rilascio_documento, $scadenza_documento, $recapito_tel1, $recapito_tel2, $mail, $password, $codice_esenzione) {
     global $pdo;
 

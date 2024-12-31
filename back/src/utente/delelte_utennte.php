@@ -1,3 +1,4 @@
+<!-- RINOMINARE -->
 <?php
 require 'config.php';
 

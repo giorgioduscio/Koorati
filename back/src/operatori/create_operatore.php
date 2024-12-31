@@ -1,3 +1,4 @@
+<!-- AGGIUNGERE IL CAMPO 'abilitato' DI TIPO BOOLEANO -->
 <?php
 require 'config.php';
 
