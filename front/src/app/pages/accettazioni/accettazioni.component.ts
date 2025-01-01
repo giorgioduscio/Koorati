@@ -4,10 +4,11 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { paragraph } from '../../tools/paragraph';
 import { Accettazione } from '../../services/accettazione-interface';
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 
 @Component({
   selector: 'app-accettazioni',
-  imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule],
+  imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './accettazioni.component.html',
   styleUrl: './accettazioni.component.sass'
 })
@@ -18,6 +19,7 @@ export class AccettazioniComponent {
   form
   templateFields :{ key:string, title:string, type:string }[] =[]
   constructor(public accettazioniService:AccettazioniService){
+    document.title='Accettazioni'
     // VALIDAZIONE DEL FORM
     let fields ={
       id_cliente: new FormControl('', Validators.required),

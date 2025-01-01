@@ -15,6 +15,7 @@ export class LoginComponent {
   form 
   fields
   constructor(public fieldsService:FieldsService){
+    document.title='Login'
     // VALIDAZIONE
     this.form =new FormGroup(this.fieldsService.validationFields)
     // CAMPI

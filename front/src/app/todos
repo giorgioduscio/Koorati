@@ -3,3 +3,4 @@ OTTIMIZZAZIONE
   o quando un array è vuoto 
   o non definito
 - aggiungere placeholder delle dashboard prima che arrivino i risultati
+- funzione che correla l'oggetto del fromGroup e il form del template

@@ -15,6 +15,7 @@ export class AccessComponent {
   form 
   fields
   constructor(public fieldsService:FieldsService){
+    document.title='Accesso'
     // VALIDAZIONE 
     let accessValidation ={
       email: fieldsService.validationFields.email,
