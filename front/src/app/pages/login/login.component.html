@@ -6,19 +6,19 @@
       <p>I campi contrassegnati dall'asterisco * sono obbligatori</p>
 
       <div *ngFor="let field of fields; let i=index">
-        @if (field.title==='sesso'){
-          <select [formControlName]="field.title">
-            <option selected disabled>{{ field.placeHold }}</option>
+        @if (field.key==='sesso'){
+          <select [formControlName]="field.key">
+            <option selected disabled>{{ field.title }}</option>
             <option value="maschio">Maschio</option>
             <option value="femmina">Femmina</option>
           </select>
 
         }@else {
           <div>
-            <input  [type]="fieldsService.onInputType(field.title)" 
-                    [id]="field.title" [name]="field.title" [formControlName]="field.title"
-                    placeholder="" value="">
-            <label [for]="field.title">{{ field.placeHold }}</label>
+            <input  [type]="field.type" placeholder="" value=""
+                    [id]="field.key" [name]="field.key" [formControlName]="field.key"
+            >
+            <label [for]="field.key">{{ field.title }}</label>
           </div>
         }
       </div>

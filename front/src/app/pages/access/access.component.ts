@@ -1,9 +1,9 @@
 import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FieldsService } from '../login/fields.service';
-import { formMapper } from '../login/formMapper';
+import FormGroupToTemplate from '../../tools/FormGroupToTemplate';
 
 @Component({
   selector: 'app-access',
@@ -16,16 +16,16 @@ export class AccessComponent {
   fields
   constructor(public fieldsService:FieldsService){
     document.title='Accesso'
-    // VALIDAZIONE 
+
     let accessValidation ={
       email: fieldsService.validationFields.email,
       password: fieldsService.validationFields.password,
     }
-    this.form =new FormGroup(accessValidation)
-    
-    // CAMPI (PRENDE SOLO PASSWORD E EMAIL DAL SERVICE)
-    this.fields =formMapper(accessValidation, this.fieldsService.validationFields)
-    // console.log(this.fields, );
+    let {controller, templateForm} =FormGroupToTemplate(accessValidation)
+    this.form =new FormGroup(controller)
+    this.fields =templateForm
+       
+    // console.log(this.form, this.fields, );
   }
 
   

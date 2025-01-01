@@ -3,7 +3,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FieldsService } from './fields.service';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { formMapper } from './formMapper';
+import FormGroupToTemplate from '../../tools/FormGroupToTemplate';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +16,13 @@ export class LoginComponent {
   fields
   constructor(public fieldsService:FieldsService){
     document.title='Login'
-    // VALIDAZIONE
-    this.form =new FormGroup(this.fieldsService.validationFields)
-    // CAMPI
-    this.fields =formMapper(this.form.value, this.fieldsService.validationFields)
-      .filter(field=> field.title!=='termini')
 
-    // console.log(this.fields);
+    let {controller, templateForm} =FormGroupToTemplate(fieldsService.validationFields, 'search')
+    this.form =new FormGroup(controller)
+    this.fields =templateForm .filter(field=> field.key!=='termini')
+    
+    // console.log('>', this.form.value, this.fields )
   }
-
 
   // SUBMIT
   onSubmit(form:FormGroup){

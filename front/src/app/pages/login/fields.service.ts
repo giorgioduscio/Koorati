@@ -9,11 +9,11 @@ export class FieldsService {
     nome: new FormControl('', Validators.required),
     cognome: new FormControl('', Validators.required),
     data_di_nascita: new FormControl('', Validators.required),
-    sesso: new FormControl('', Validators.required),
+    sesso: new FormControl(':select', Validators.required),
     
     // IDENTIFICAZIONE
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
+    email: new FormControl(':email', [Validators.required, Validators.email]),
+    password: new FormControl(':password', [Validators.required, Validators.maxLength(16), Validators.minLength(8)]),
     tipo_di_documento: new FormControl('', Validators.required),
     numero_documento: new FormControl('', Validators.required),
     rilasciato_da: new FormControl('', Validators.required),
