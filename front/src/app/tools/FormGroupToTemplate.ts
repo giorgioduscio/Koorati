@@ -12,13 +12,19 @@ export default function FormGroupToTemplate(controlObject:any, inputType ='text'
   const templateForm =Object.keys(controlObject).map(key=>{
     let $key =key as keyof typeof controlObject
     let field =controlObject[$key].value
+
+    if (typeof field==='number'){
+      inputType ='number'
+    }else if (typeof field==='boolean'){
+      inputType ='checkbox'
+
     // il valore del formControl devve essere una stringa piena
-    if (typeof field==='string' && field){
+    }else if (typeof field==='string' && field){
       let splitter =field.split(':')
       inputType =splitter[1]
       // CONTROLLER: COSTRUIRE NUOVO OGGETTO DI FORMCONTROLL
       controller[$key].value =splitter[0]
-    }
+    } 
 
     // TEMPLATE: ARRAY DI OGGETTI
     return { key, title:paragraph(key), type:inputType }

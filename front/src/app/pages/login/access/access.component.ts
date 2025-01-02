@@ -2,14 +2,14 @@ import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { FieldsService } from '../login/fields.service';
-import FormGroupToTemplate from '../../tools/FormGroupToTemplate';
+import { FieldsService } from '../fields.service';
+import FormGroupToTemplate from '../../../tools/FormGroupToTemplate';
 
 @Component({
   selector: 'app-access',
   imports: [NgIf, NgFor, ReactiveFormsModule, RouterLink, UpperCasePipe],
   templateUrl: './access.component.html',
-  styleUrl: '../login/login.component.sass'
+  styleUrl: '../login.component.sass'
 })
 export class AccessComponent {
   form 
