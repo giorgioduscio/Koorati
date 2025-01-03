@@ -1,5 +1,6 @@
 <?php
 // Inclusione dei file per le operazioni CRUD in modo sicuro
+// realpath restituisce il percorso assoluto del file
 require_once realpath('../../src/utenti/create_struttura.php');
 require_once realpath('../../src/utenti/read_struttura.php');
 require_once realpath('../../src/utenti/update_struttura.php');
@@ -10,25 +11,44 @@ header('Content-Type: application/json');
 
 // Funzione per validare l'input JSON
 function validate_json($input) {
+    // Verifica se l'input è un JSON valido
     $decoded = json_decode($input, true);
+    // Se il JSON non è valido restituisci un errore
     if (json_last_error() !== JSON_ERROR_NONE) {
         send_response(400, 'Input JSON non valido');
-    }
+    }// Altrimenti restituisci l'input decodificato
     return $decoded;
 }
 
-// Funzione per inviare risposte uniformi
+// Funzione per inviare una risposta JSON
 function send_response($http_code, $message, $data = null) {
+    // Imposta il codice di risposta HTTP
     http_response_code($http_code);
+    // Crea l'array di risposta JSON con il messaggio e i dati opzionali
     $response = ['message' => htmlspecialchars($message)];
+    // Aggiunge i dati se specificati
     if ($data !== null) {
         $response['data'] = $data;
-    }
+    }// Invia la risposta JSON e interrompi lo script
     echo json_encode($response);
     exit;
 }
 
-// Funzione di validazione generica
+// Regole di validazione
+$validation_rules = [
+    'indirizzo_struttura' => ['pattern' => '/^.{1,100}$/', 'error' => 'Indirizzo non valido'],
+    'nome_struttura' => ['pattern' => '/^[a-zA-Z0-9 ]{2,50}$/', 'error' => 'Nome struttura non valido'],
+    'telefono_struttura' => ['pattern' => '/^[0-9]{10}$/', 'error' => 'Telefono non valido'],
+    'email_struttura' => [
+        'pattern' => fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL),
+        'error' => 'Email non valida'
+    ],
+    'definizione' => ['pattern' => '/^.{1,200}$/', 'error' => 'Definizione non valida']
+];
+
+
+
+// Funzione per validare l'input
 function validate_input($data, $rules) {
     foreach ($rules as $field => $rule) {
         if (!isset($data[$field])) {
@@ -44,17 +64,6 @@ function validate_input($data, $rules) {
     }
 }
 
-// Regole di validazione
-$validation_rules = [
-    'indirizzo_struttura' => ['pattern' => '/^.{1,100}$/', 'error' => 'Indirizzo non valido'],
-    'nome_struttura' => ['pattern' => '/^[a-zA-Z0-9 ]{2,50}$/', 'error' => 'Nome struttura non valido'],
-    'telefono_struttura' => ['pattern' => '/^[0-9]{10}$/', 'error' => 'Telefono non valido'],
-    'email_struttura' => [
-        'pattern' => fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL),
-        'error' => 'Email non valida'
-    ],
-    'definizione' => ['pattern' => '/^.{1,200}$/', 'error' => 'Definizione non valida']
-];
 
 // Ottieni il metodo della richiesta
 $method = $_SERVER['REQUEST_METHOD'];

@@ -5,7 +5,7 @@ require 'config.php';
 function getStrutturaById($id_struttura) {
     global $pdo;
     
-    // Query per selezionare la struttura con un determinato ID
+    // Query parametrizzata con il segnaposto :id
     $sql = "SELECT * FROM struttura WHERE id = :id";
     
     // Prepara la query
