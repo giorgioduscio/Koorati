@@ -19,5 +19,13 @@ function createStruttura($indirizzo_struttura, $nome_struttura, $telefono_strutt
         ':disponibilita_reparti' => $disponibilità_reparti,
         ':responsabile_struttura' => $responsabile_struttura
     ]);
+
+    
+    try { // Esegue la query SQL
+        return $pdo->lastInsertId(); // Restituisce l'ID dell'ultima riga inserita
+        // In caso di errore, viene lanciata un'eccezione
+    } catch (PDOException $e) {
+        send_response(500, $e->getMessage());
+    }
 }
 ?>

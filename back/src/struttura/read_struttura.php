@@ -18,6 +18,13 @@ function getStrutturaById($id_struttura) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+try {
+    $id_struttura = $_GET['id_struttura']; // Ottiene l'ID della struttura dalla richiesta GET
+    $struttura = getStrutturaById($id_struttura); // Ottiene la struttura con l'ID specificato
+    send_response(200, $struttura); // Restituisce la struttura come risposta
+} catch (PDOException $e) {
+    send_response(500, $e->getMessage()); // Restituisce un messaggio di errore in caso di eccezione
+}
 // Funzione per ottenere tutte le strutture
 function readAllStrutture() {
     global $pdo;
@@ -30,5 +37,12 @@ function readAllStrutture() {
     
     // Recupera tutte le righe (strutture)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+try {
+    $strutture = readAllStrutture(); // Ottiene tutte le strutture
+    send_response(200, $strutture); // Restituisce le strutture come risposta
+} catch (PDOException $e) {
+    send_response(500, $e->getMessage()); // Restituisce un messaggio di errore in caso di eccezione
 }
 ?>

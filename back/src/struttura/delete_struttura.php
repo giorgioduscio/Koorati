@@ -13,4 +13,11 @@ function deleteStruttura($id_struttura) { // Funzione per cancellare una struttu
     
     $stmt->execute([':id' => $id_struttura]); // Esegue la query passando l'ID come parametro
 }
+try {
+    $id_struttura = $_GET['id_struttura']; // Ottiene l'ID della struttura dalla richiesta GET
+    deleteStruttura($id_struttura); // Cancella la struttura con l'ID specificato
+    send_response(200, 'Struttura cancellata con successo'); // Restituisce un messaggio di successo
+} catch (PDOException $e) {
+    send_response(500, $e->getMessage()); // Restituisce un messaggio di errore in caso di eccezione
+}
 ?>
